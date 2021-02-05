@@ -19,9 +19,9 @@ def main():
     dzx2 = dzx*dzx
     dqy2 = dqy*dqy
     dqx2 = dqx*dqx
-    sq = m.sqrt(dzy2 + -1*dzx2)
-    sz = m.sqrt(dqy2 + dqx2)
-    mt = sq / sz
+    sq = m.sqrt(dqy2 + dqx2)
+    sz = m.sqrt(dzy2 + dzx2)
+    mt = sz/ sq
     tlokalrad = m.atan(dqy/dqx)
     tueberrad = m.atan(dzy/dzx)
     tlokalgon= tlokalrad*200/m.pi
@@ -49,7 +49,7 @@ def main():
 
     rotarad = rotagon *m.pi/200
 
-    yp = float(y1.value)-mt*m.sin(rotarad)*a1x-mt/m.cos(rotarad)*a1y
+    yp = float(y1.value)-mt*m.sin(rotarad)*a1x-mt*m.cos(rotarad)*a1y
     xp = float(x1.value)-mt*m.cos(rotarad)*a1x+mt*m.sin(rotarad)*a1y
     ys.value = str(yp)
     xs.value = str(xp)
@@ -87,6 +87,21 @@ text10 = Text(app, text="XP", grid=[0,9])
 xs = TextBox(app, text=" ", grid=[3,9])
 button = PushButton(app, text="Rechnen", command=main, grid=[1,10])
 
+#text11 = Text(app, text="Absteckung:", grid=[0,11])
+#text12 = Text(app, text="NPY", grid=[0,12])
+#npy = TextBox(app, text=" ", grid=[3,12])
+#text13 = Text(app, text="NPX", grid=[0,13])
+#npx = TextBox(app, text=" ", grid=[3,13])
+#text14 = Text(app, text="Strecke gemessen", grid=[0,14])
+#npsg = TextBox(app, text=" ", grid=[3,14])
+#text15 = Text(app, text="Winkel gemessen", grid=[0,15])
+#nptg = TextBox(app, text=" ", grid=[3,15])
+#text16 = Text(app, text="Laengsabweichung", grid=[0,16])
+#laengs = TextBox(app, text=" ", grid=[3,16])
+#text17 = Text(app, text="Querabweichung", grid=[0,17])
+#quer = TextBox(app, text=" ", grid=[3,17])
+
+#abstecken = PushButton(app, text="Abstecken!",command=abstecken,  grid=[1,18])
 
 
 
