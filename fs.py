@@ -1,58 +1,72 @@
 from guizero import App, Text, TextBox, Combo, PushButton
 import math as m
+import angleconv as ac
+import polarkart as pk
+import quadrantenbetrachtung as qb
+import visu as vs
 
 
 def main():
-    t1rad = float(t1gon.value) * m.pi / 200
-    t2rad = float(t2gon.value) * m.pi / 200
-    xs.value = str(t1rad)
-    ys.value = str(t2rad)
-    a1y = float(s1.value)*m.sin(t1rad)
-    a1x = float(s1.value)*m.cos(t1rad)
-    a2y = float(s2.value)*m.sin(t2rad)
-    a2x = float(s2.value)*m.cos(t2rad)
+    #Winkel in Gon umrechnen
+    t1rad = ac.rg(float(t1gon.value))
+    t2rad = ac.rg(float(t2gon.value))
+
+    #Polar zu kartesisch
+    a1y = pk.pky(float(s1.value),t1rad)
+    a1x = pk.pkx(float(s1.value),t1rad)
+    a2y = pk.pky(float(s2.value),t2rad)
+    a2x = pk.pkx(float(s2.value),t2rad)
+
+    #Deltas bilden
     dqy = a1y-a2y
     dqx = a1x-a2x
     dzy = float(y1.value)-float(y2.value)
     dzx = float(x1.value)-float(x2.value)
+
+    #Deltas quadriert
     dzy2 = dzy*dzy
     dzx2 = dzx*dzx
     dqy2 = dqy*dqy
     dqx2 = dqx*dqx
+
+    #Strecken im Quell- und Zielsystem
     sq = m.sqrt(dqy2 + dqx2)
     sz = m.sqrt(dzy2 + dzx2)
+
+    #Maßstab
     mt = sz/ sq
+
+    #Lokale und uebergeordnete Totation berechnen
     tlokalrad = m.atan(dqy/dqx)
     tueberrad = m.atan(dzy/dzx)
-    tlokalgon= tlokalrad*200/m.pi
-    tuebergon = tueberrad*200/m.pi
-    if dqy > 0 and dqx > 0:
-        tlokalgon = tlokalgon + 0
-    elif dqy > 0 and dqx < 0:
-        tlokalgon = tlokalgon + 200
-    elif dqy < 0 and dqx < 0:
-        tlokalgon = tlokalgon + 200
-    elif dqy < 0 and dqx > 0:
-        tlokalgon = tlokalgon + 400
 
-    if dzy > 0 and dzx > 0:
-        tuebergon = tuebergon + 0
-    elif dzy > 0 and dzx < 0:
-        tuebergon = tuebergon + 200
-    elif dzy < 0 and dzx < 0:
-        tuebergon = tuebergon + 200
-    elif dzy < 0 and dzx > 0:
-        tuebergon = tuebergon + 400
+    #Winkel in Gon umrechnen
+    tlokalgon= ac.gr(tlokalrad)
+    tuebergon = ac.gr(tueberrad)
 
-
+    #Quadrantenbetrachtung
+    tlokalgon = qb.qb(dqy,dqx,tlokalgon)
+    tuebergon = qb.qb(dzy,dzx,tuebergon)
+    #Rotation berechnen
     rotagon = tuebergon-tlokalgon+400
+    #Rotation in Radiant umrechnen
+    rotarad = ac.rg(rotagon)
 
-    rotarad = rotagon *m.pi/200
-
+    #Standort berechnen
     yp = float(y1.value)-mt*m.sin(rotarad)*a1x-mt*m.cos(rotarad)*a1y
     xp = float(x1.value)-mt*m.cos(rotarad)*a1x+mt*m.sin(rotarad)*a1y
+
+    #Werte uebergeben
     ys.value = str(yp)
     xs.value = str(xp)
+    y1v = float(y1.value)
+    x1v = float(x1.value)
+    y2v = float(y2.value)
+    x2v = float(x2.value)
+    s1v = float(s1.value)
+    s2v = float(s2.value)
+
+    vs.visu(yp,xp,y1v,x1v,y2v,x2v,s1v,s2v)
 
 
 
@@ -62,7 +76,7 @@ def main():
 app = App(title="Freie Stationierung", height=600, width=500, layout="grid")
 app.bg = "white"
 app.text_color = "black"
-app.info("Hinweis", "Bitte . anstatt von , verwenden.")
+
 
 
 text1 = Text(app, text="Y1", grid=[0,0])
