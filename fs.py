@@ -1,4 +1,4 @@
-from guizero import App, Text, TextBox, Combo, PushButton
+from guizero import App, Text, TextBox, PushButton, CheckBox
 import math as m
 import angleconv as ac
 import polarkart as pk
@@ -66,18 +66,15 @@ def main():
     s1v = float(s1.value)
     s2v = float(s2.value)
 
-    vs.visu(yp,xp,y1v,x1v,y2v,x2v,s1v,s2v)
+    if grafik.value==1:
+        vs.visu(yp, xp, y1v, x1v, y2v, x2v, s1v, s2v)
 
 
 
 
-
-
-app = App(title="Freie Stationierung", height=600, width=500, layout="grid")
+app = App(title="Freie Stationierung", height=350, width=220, layout="grid")
 app.bg = "white"
 app.text_color = "black"
-
-
 
 text1 = Text(app, text="Y1", grid=[0,0])
 y1 = TextBox(app, text="0", grid=[3,0])
@@ -99,8 +96,8 @@ text9 = Text(app, text="YP", grid=[0,8])
 ys = TextBox(app, text=" ", grid=[3,8])
 text10 = Text(app, text="XP", grid=[0,9])
 xs = TextBox(app, text=" ", grid=[3,9])
-button = PushButton(app, text="Rechnen", command=main, grid=[1,10])
-
+button = PushButton(app, text="Rechnen", command=main, grid=[0,10])
+grafik = CheckBox(app, text="Grafik", grid=[3,10])
 #text11 = Text(app, text="Absteckung:", grid=[0,11])
 #text12 = Text(app, text="NPY", grid=[0,12])
 #npy = TextBox(app, text=" ", grid=[3,12])
@@ -116,11 +113,5 @@ button = PushButton(app, text="Rechnen", command=main, grid=[1,10])
 #quer = TextBox(app, text=" ", grid=[3,17])
 
 #abstecken = PushButton(app, text="Abstecken!",command=abstecken,  grid=[1,18])
-
-
-
-
-
-
 
 app.display()
