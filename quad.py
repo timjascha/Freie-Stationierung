@@ -1,5 +1,3 @@
 def q(x):
-    y = x*x
+    y = x * x
     return y
-
-#quadrieren

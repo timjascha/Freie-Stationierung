@@ -1,4 +1,4 @@
-def qb(y,x,z):
+def qb(y, x, z):
     if y > 0 and x > 0:
         z = z
     elif y > 0 and x < 0:
