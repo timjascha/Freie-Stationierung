@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 
+
 def visu(a, b, c, d, e, f, g, h):
 
     # Koordinaten definiert
