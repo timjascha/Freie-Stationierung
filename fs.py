@@ -117,6 +117,7 @@ def abstecken(rotarad, yp, xp, mt, y1v, x1v, y2v, x2v, s1v, s2v):
     npvx = float(npx.value)
     nps = float(npsg.value)
     if absteckeng.value == 1:
+        grafik.value = 0
         vs.visu2(yp, xp, y1v, x1v, y2v, x2v, s1v, s2v, npvy, npvx, nps)
 
 
